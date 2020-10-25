@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\App;
 
 class LocaleMiddleware
 {
-    public static $mainLanguage = 'ru';
-
     public static $languages = ['en', 'ru', 'cs', 'de'];
 
     public static function getLocale(Request $request)
