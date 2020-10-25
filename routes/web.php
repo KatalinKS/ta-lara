@@ -14,7 +14,8 @@ use App\Http\Controllers\ProductsController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['domain' => '{lang}.ta-lara.loc'], function() {
+    Route::get("/", function () {
+        view('welcome');
+    });
 });
-Route::get('/products', 'ProductsController@index');
