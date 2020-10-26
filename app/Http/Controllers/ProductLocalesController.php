@@ -7,36 +7,38 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
-use App\Http\Requests\ProductCreateRequest;
-use App\Http\Requests\ProductUpdateRequest;
-use App\Repositories\ProductRepository;
+use App\Http\Requests\ProductLocaleCreateRequest;
+use App\Http\Requests\ProductLocaleUpdateRequest;
+use App\Repositories\ProductLocaleRepository;
+use App\Validators\ProductLocaleValidator;
 
 /**
- * Class ProductsController.
+ * Class ProductLocalesController.
  *
  * @package namespace App\Http\Controllers;
  */
-class ProductsController extends Controller
+class ProductLocalesController extends Controller
 {
     /**
-     * @var ProductRepository
+     * @var ProductLocaleRepository
      */
     protected $repository;
 
     /**
-     * @var ProductValidator
+     * @var ProductLocaleValidator
      */
     protected $validator;
 
     /**
-     * ProductsController constructor.
+     * ProductLocalesController constructor.
      *
-     * @param ProductRepository $repository
-     * @param ProductValidator $validator
+     * @param ProductLocaleRepository $repository
+     * @param ProductLocaleValidator $validator
      */
-    public function __construct(ProductRepository $repository)
+    public function __construct(ProductLocaleRepository $repository, ProductLocaleValidator $validator)
     {
         $this->repository = $repository;
+        $this->validator  = $validator;
     }
 
     /**
@@ -46,41 +48,39 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        //$this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $products = $this->repository->all();
+        $this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
+        $productLocales = $this->repository->all();
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $products,
+                'data' => $productLocales,
             ]);
         }
-        return response()->json([
-            'data' => $products,
-        ]);
-        //return view('products.index', compact('products'));
+
+        return view('productLocales.index', compact('productLocales'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  ProductCreateRequest $request
+     * @param  ProductLocaleCreateRequest $request
      *
      * @return \Illuminate\Http\Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function store(ProductCreateRequest $request)
+    public function store(ProductLocaleCreateRequest $request)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
 
-            $product = $this->repository->create($request->all());
+            $productLocale = $this->repository->create($request->all());
 
             $response = [
-                'message' => 'Product created.',
-                'data'    => $product->toArray(),
+                'message' => 'ProductLocale created.',
+                'data'    => $productLocale->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -110,16 +110,16 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $product = $this->repository->find($id);
+        $productLocale = $this->repository->find($id);
 
         if (request()->wantsJson()) {
 
             return response()->json([
-                'data' => $product,
+                'data' => $productLocale,
             ]);
         }
 
-        return view('products.show', compact('product'));
+        return view('productLocales.show', compact('productLocale'));
     }
 
     /**
@@ -131,32 +131,32 @@ class ProductsController extends Controller
      */
     public function edit($id)
     {
-        $product = $this->repository->find($id);
+        $productLocale = $this->repository->find($id);
 
-        return view('products.edit', compact('product'));
+        return view('productLocales.edit', compact('productLocale'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  ProductUpdateRequest $request
+     * @param  ProductLocaleUpdateRequest $request
      * @param  string            $id
      *
      * @return Response
      *
      * @throws \Prettus\Validator\Exceptions\ValidatorException
      */
-    public function update(ProductUpdateRequest $request, $id)
+    public function update(ProductLocaleUpdateRequest $request, $id)
     {
         try {
 
             $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $product = $this->repository->update($request->all(), $id);
+            $productLocale = $this->repository->update($request->all(), $id);
 
             $response = [
-                'message' => 'Product updated.',
-                'data'    => $product->toArray(),
+                'message' => 'ProductLocale updated.',
+                'data'    => $productLocale->toArray(),
             ];
 
             if ($request->wantsJson()) {
@@ -194,11 +194,11 @@ class ProductsController extends Controller
         if (request()->wantsJson()) {
 
             return response()->json([
-                'message' => 'Product deleted.',
+                'message' => 'ProductLocale deleted.',
                 'deleted' => $deleted,
             ]);
         }
 
-        return redirect()->back()->with('message', 'Product deleted.');
+        return redirect()->back()->with('message', 'ProductLocale deleted.');
     }
 }

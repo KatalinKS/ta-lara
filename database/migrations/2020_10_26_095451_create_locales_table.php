@@ -4,9 +4,9 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 /**
- * Class CreateProductsTable.
+ * Class CreateLocalesTable.
  */
-class CreateProductsTable extends Migration
+class CreateLocalesTable extends Migration
 {
 	/**
 	 * Run the migrations.
@@ -15,10 +15,9 @@ class CreateProductsTable extends Migration
 	 */
 	public function up()
 	{
-		Schema::create('products', function(Blueprint $table) {
+		Schema::create('locales', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('sku');
-            $table->timestamps();
+            $table->string('locale');
 		});
 	}
 
@@ -29,6 +28,6 @@ class CreateProductsTable extends Migration
 	 */
 	public function down()
 	{
-		Schema::drop('products');
+		Schema::drop('locales');
 	}
 }

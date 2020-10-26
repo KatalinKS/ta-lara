@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProductsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,7 @@ Route::get('/', function () {
 
 
 Route::group(['prefix' => '{lang}'], function () {
-    Route::get('/', function () {
-        echo 'Api lang is '.\Illuminate\Support\Facades\App::getLocale();
-    });
+    Route::get('/', '\App\Http\Controllers\ProductsController@index');
 });
 
 

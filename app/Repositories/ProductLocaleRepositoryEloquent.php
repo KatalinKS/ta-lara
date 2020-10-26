@@ -4,22 +4,17 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Repositories\ProductRepository;
-use App\Entities\Product;
-use App\Validators\ProductValidator;
+use App\Repositories\product_localeRepository;
+use App\Models\ProductLocale;
+use App\Validators\ProductLocaleValidator;
 
 /**
- * Class ProductRepositoryEloquent.
+ * Class ProductLocaleRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class ProductRepositoryEloquent extends BaseRepository implements ProductRepository
+class ProductLocaleRepositoryEloquent extends BaseRepository implements ProductLocaleRepository
 {
-    public function presenter()
-    {
-        return "App\\Presenters\\ProductPresenter";
-    }
-
     /**
      * Specify Model class name
      *
@@ -27,9 +22,19 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
      */
     public function model()
     {
-        return Product::class;
+        return ProductLocale::class;
     }
 
+    /**
+    * Specify Validator class name
+    *
+    * @return mixed
+    */
+    public function validator()
+    {
+
+        return ProductLocaleValidator::class;
+    }
 
 
     /**
@@ -39,5 +44,5 @@ class ProductRepositoryEloquent extends BaseRepository implements ProductReposit
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
-
+    
 }
