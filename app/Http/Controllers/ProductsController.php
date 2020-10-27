@@ -47,8 +47,8 @@ class ProductsController extends Controller
     public function index()
     {
         //$this->repository->pushCriteria(app('Prettus\Repository\Criteria\RequestCriteria'));
-        $products = $this->repository->all();
-
+        $products = $this->repository->paginate();
+        var_dump($products);
         if (request()->wantsJson()) {
 
             return response()->json([

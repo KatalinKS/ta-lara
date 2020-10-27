@@ -5,7 +5,8 @@ namespace App\Transformers;
 use App\Repositories\ProductLocaleRepository;
 use Illuminate\Support\Facades\App;
 use League\Fractal\TransformerAbstract;
-use App\Entities\Product;
+use App\Classes\Product;
+use App\Entities\Product as ProductModel;
 
 /**
  * Class ProductTransformer.
@@ -28,19 +29,16 @@ class ProductTransformer extends TransformerAbstract
      *
      * @return array
      */
-    public function transform(Product $model)
+    public function transform(ProductModel $model)
     {
         $locale = $this->locale->findWhere(['product_id' => $model->id, 'locale' => App::getLocale()]);
-        return [
-            'id'                => (int) $model->id,
-            'sku'               => $model->sku,
-            'name'              => $locale[0]->name,
-            'description'       => $locale[0]->description,
 
-            /* place your other model properties here */
+        $product = new Product();
+        $product->id = (int) $model->id;
+        $product->sku = $model->sku;
+        $product->name = $locale[0]->name;
+        $product->description = $locale[0]->description;
 
-            'created_at' => $model->created_at,
-            'updated_at' => $model->updated_at
-        ];
+        return $product;
     }
 }

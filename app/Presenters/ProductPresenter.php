@@ -2,6 +2,7 @@
 
 namespace App\Presenters;
 
+use App\Traits\Repository\PresenterTrait;
 use App\Transformers\ProductTransformer;
 use Prettus\Repository\Presenter\FractalPresenter;
 
@@ -12,6 +13,7 @@ use Prettus\Repository\Presenter\FractalPresenter;
  */
 class ProductPresenter extends FractalPresenter
 {
+    use PresenterTrait;
     /**
      * Transformer
      *
@@ -21,4 +23,5 @@ class ProductPresenter extends FractalPresenter
     {
         return new ProductTransformer();
     }
+
 }
