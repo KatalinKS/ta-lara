@@ -7,15 +7,14 @@ namespace App\Product\Property\Adapters;
 use App\Product\Property\Intefaces\Repository;
 use Illuminate\Database\Eloquent\Collection;
 
-class DefaultValueRepository implements Repository
+class DefaultPropertyRepository implements Repository
 {
-    public $repository;
+    private $repository;
 
     public function __construct()
     {
         $this->repository = resolve(\App\Repositories\PropertyRepository::class);
     }
-
     public function findWhere(array $filter): Collection
     {
         // TODO: Implement findWhere() method.

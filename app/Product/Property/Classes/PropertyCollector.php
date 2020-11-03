@@ -61,16 +61,18 @@ class PropertyCollector
     /**
      * получить Properties по id
      * @param int $propertiesId
+     * @return Property[]
      */
-    public function getPropertiesByPropertiesId(int $propertiesId) {
+    private function getPropertiesByPropertiesId(int $propertiesId):array {
         return $this->propertyGetter->getValuesBySeveralIds($propertiesId);
     }
 
     /**
      * Получить Property модель для модели Values
      * @param Value[] $values
+     * @return Property[]
      */
-    public function getPropertiesForValues(array $values):PropertyModel {
+    public function getPropertiesForValues(array $values):array {
         $propertiesId = [];
         foreach($values as $value) {
             $propertiesId[] = $value->propertyId;
@@ -82,10 +84,10 @@ class PropertyCollector
      * @param int $productId
      * @return Property[]
      */
-    private function collectByProductId(int $productId):array {
+    public function collectByProductId(int $productId):array {
         $values = $this->getBindingValues($productId);
         $properties = $this->getPropertiesForValues($values);
-        return $this->collect($properties, $values);
+        return $this->collectArray($properties, $values);
 
 
 

@@ -3,15 +3,10 @@
 
 namespace App\Product\Property\Getters;
 
+use App\Product\Property\Adapters\DefaultPropertyRepository;
 
 class PropertyGetter extends Getter
 {
-    public function __construct()
-    {
-        $repository = new DefaultValueRepository();
-        parent::__construct($repository);
-    }
-
     public function getValuesBySeveralIds(array $id): array {
         return $this->repository->findWhereIn('id', $id);
     }
