@@ -16,12 +16,20 @@ class PropertyRepositoryForTestTest extends TestCase
         $this->repository = new PropertyRepositoryForTest();
     }
 
-    public function testFindWhereIn()
+    public function dataForFindWhereIn() {
+        return [
+            'поиск с вхождением в 1 элемент не уникальный' => ['typeId', [10, 12, 13]]
+        ];
+    }
+    /**
+     * @dataProvider dataForFindWhereIn
+     */
+    public function testFindWhereIn($row, $filterData)
     {
-        $properties = $this->repository->findWhereIn('typeId' , [10, 12, 13]);
+        $properties = $this->repository->findWhereIn($row , $filterData);
         foreach ($properties as $property) {
             $this->assertInstanceOf(Property::class, $property, 'Проверка соответствия типа');
-            $this->assertContainsEquals([10, 12, 13], $property->typeId, 'Проверка соответствия типа значения');
+            $this->assertContainsEquals($property->$row, $filterData,  'Проверка соответствия типа значения');
         }
 
     }

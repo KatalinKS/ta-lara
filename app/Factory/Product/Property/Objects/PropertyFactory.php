@@ -11,6 +11,9 @@ use App\Product\Property\Objects\Value;
 class PropertyFactory extends Factory
 {
     public function definition(): array {
+        if($this->criteria['typeId']) {
+            $typeId =
+        }
         return [
             'id' => $this->getId(),
             'name' => $this->faker->text(20),

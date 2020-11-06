@@ -17,6 +17,8 @@ abstract class Factory
      */
     private static $factories;
 
+    protected $criteria;
+
     /**
      * Имя класса, обьект которого необходимо создать
      * @var String
@@ -66,7 +68,10 @@ abstract class Factory
         $objectName = str_replace('App\\', '', $objectName);
         return 'App\\Factory\\'.$objectName.'Factory';
     }
-
+    public function addCriteria(array $criteria) {
+        $this->criteria = array_merge($this->criteria, $criteria);
+        return $this;
+    }
     /**
      * Генерирует n обьектов с заданными типом и полями
      * @param int $count

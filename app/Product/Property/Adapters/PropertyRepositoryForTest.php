@@ -17,6 +17,9 @@ class PropertyRepositoryForTest implements Repository
 
     public function findWhereIn(string $row, array $values): array
     {
-        return Property::factory()->generate(rand(1,10));
+        $criteria = [$row => $values];
+        return Property::factory()
+            ->addCriteria($criteria)
+            ->generate(rand(1,10));
     }
 }
