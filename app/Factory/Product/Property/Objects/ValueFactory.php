@@ -1,9 +1,11 @@
 <?php
 
 
-namespace App\Factory;
+namespace App\Factory\Product\Property\Objects;
 
 
+
+use App\Factory\Factory;
 
 class ValueFactory extends Factory
 {

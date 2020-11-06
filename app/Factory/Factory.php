@@ -3,8 +3,7 @@
 
 namespace App\Factory;
 
-
-//use Faker\Generator as Faker;
+use Faker\Generator;
 
 /**
  * Class Factory
@@ -30,9 +29,9 @@ abstract class Factory
     protected int $objectId = 0;
     /**
      * Фейкер данных
-     * @var \Faker\Generator
+     * @var Generator
      */
-    protected $faker;
+    protected Generator $faker;
     /**
      * Factory constructor.
      * @param String $objectName
@@ -64,8 +63,8 @@ abstract class Factory
      * @return String
      */
     private static function resolveFactoryName($objectName): String {
-        $classNamePiece = explode('\\', $objectName);
-        return 'App\\Factory\\'.$classNamePiece[count($classNamePiece)-1].'Factory';
+        $objectName = str_replace('App\\', '', $objectName);
+        return 'App\\Factory\\'.$objectName.'Factory';
     }
 
     /**

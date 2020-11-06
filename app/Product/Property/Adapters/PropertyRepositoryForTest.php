@@ -4,18 +4,19 @@
 namespace App\Product\Property\Adapters;
 
 
-use Illuminate\Database\Eloquent\Collection;
+use App\Product\Property\Intefaces\Repository;
+use App\Product\Property\Objects\Property;
 
-class PropertyRepositoryForTest implements \App\Product\Property\Intefaces\Repository
+class PropertyRepositoryForTest implements Repository
 {
 
-    public function findWhere(array $filter): Collection
+    public function findWhere(array $filter): array
     {
-        // TODO: Implement findWhere() method.
+        return Property::factory()->generate(rand(1,10));
     }
 
-    public function findWhereIn(string $row, array $values): Collection
+    public function findWhereIn(string $row, array $values): array
     {
-        // TODO: Implement findWhereIn() method.
+        return Property::factory()->generate(rand(1,10));
     }
 }

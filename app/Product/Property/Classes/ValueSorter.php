@@ -17,7 +17,7 @@ class ValueSorter
         $tmp = [];
         foreach ($values as $value) {
             if (TypeChecker::isTypeValue($value)) {
-                $tmp[$value->propertyId] = $value;
+                $tmp[$value->propertyId][] = $value;
             }
         }
         return $tmp;

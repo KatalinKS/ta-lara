@@ -7,24 +7,24 @@ namespace App\Product\Property\Classes;
 use App\Product\Property\Getters\BindingValueToProductGetter;
 use App\Product\Property\Getters\PropertyGetter;
 use App\Product\Property\Getters\ValueGetter;
-use App\Product\Property\Objects\Model\Property as PropertyModel;
 use App\Product\Property\Objects\Value;
 use App\Product\Property\Objects\Property;
+use Illuminate\Cache\Repository;
 
 class PropertyCollector
 {
     /**
      * @var PropertyGetter
      */
-    private $propertyGetter;
+    private PropertyGetter $propertyGetter;
     /**
      * @var ValueGetter
      */
-    private $valueGetter;
+    private ValueGetter $valueGetter;
     /**
      * @var BindingValueToProductGetter
      */
-    private $bidingValueToProductGetter;
+    private BindingValueToProductGetter $bidingValueToProductGetter;
 
     /**
      * PropertyCollector constructor.
@@ -117,5 +117,17 @@ class PropertyCollector
     private function  collect(Property $property, Value $value): Property {
         $property->value[] = $value;
         return $property;
+    }
+
+    public function setRepositoryForBindingValueToProductGetter(Repository $repository) {
+        $this->bidingValueToProductGetter->setRepository($repository);
+    }
+
+    public function setRepositoryForValueGetter(Repository $repository) {
+        $this->valueGetter->setRepository($repository);
+    }
+
+    public function setRepositoryForPropertyGetter(Repository $repository) {
+        $this->propertyGetter->setRepository($repository);
     }
 }

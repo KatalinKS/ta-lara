@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Collection;
 
 class PropertySorter
 {
-    public static function sortById(Collection $collection): array {
+    public static function sortById(array $properties): array {
         $tmp = [];
-        foreach ($collection as $element) {
+        foreach ($properties as $element) {
             $tmp[$element->id] = $element;
         }
         return $tmp;

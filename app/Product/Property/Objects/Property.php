@@ -4,12 +4,15 @@
 namespace App\Product\Property\Objects;
 
 
+use App\Factory\Traits\UseFactory;
+
 /**
  * Class Property
  * @package App\Product\Property\Objects
  */
 class Property
 {
+    use UseFactory;
     /**
      * @var
      */
